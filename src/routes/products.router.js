@@ -69,14 +69,12 @@ const updateProducts = (req, res, next) =>{
 };
 
 // Endpoint GET sin parametros o con un Query
-router.get('/', updateProducts, (req, res) => {
-    
+router.get('/', updateProducts, (req, res) => {   
     const limit = req.query.limit;
     if(!limit){
         res.status(200).send({ error: null, data: products });
     } else {
         const mostrarProducts = products.slice(0,limit)
-        console.log("Query: ", limit," - ", mostrarProducts)
         res.status(200).send({ error: null, data: mostrarProducts });
     }
 });
@@ -113,7 +111,6 @@ router.put('/:pid', updateProducts, checkProduct, checkId, checkStatus, (req, re
     const id = parseInt(req.params.pid);
     const index = products.findIndex(element => element.id === id);
     if (index > -1) {
-        console.log(products[index])
         products[index] = {"id": id,...req.body};
         res.status(200).send({ error: null, data: products[index] });
     } else {

@@ -29,7 +29,6 @@ const checkPid = (req,res,next) =>{
 // Endpoint GET con params
 router.get('/:cid', checkCid, (req, res) => {
     const id = parseInt(req.params.cid);
-    console.log("recibo ID: ",id);
     const index = carts.findIndex(el => el.id === id);
     if(index > -1) {
         res.status(200).send({ error: null, data: carts[index] });
@@ -63,8 +62,6 @@ router.post('/:cid/product/:pid', checkCid, checkPid, (req, res) => {
         const newProd = {id: req.params.pid, quantity: 1};
         carts[cIndex].products.push(newProd);
     }
-    console.log(carts[cIndex])
-
     writeFile(CARTSFILE, carts)
     res.status(200).send({ error: null, data: "producto agregado al carro" });
 });
